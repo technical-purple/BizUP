@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "331499403927",
+    "project_id": "bizup-ba6a9",
+    "storage_bucket": "bizup-ba6a9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331499403927:android:6e14261efa3f5978c9c7d2",
+        "android_client_info": {
+          "package_name": "com.bizup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAigtA8AcW031DvGHu7Wl7Qi1FXMPD19S0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331499403927:android:73548ca1d6787029c9c7d2",
+        "android_client_info": {
+          "package_name": "com.example.bizup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAigtA8AcW031DvGHu7Wl7Qi1FXMPD19S0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

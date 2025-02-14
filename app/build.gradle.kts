@@ -18,6 +18,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures{
+        viewBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -38,6 +42,11 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.recyclerview)
+    // For control over item selection of both touch and mouse driven selection
+    implementation(libs.androidx.recyclerview.selection)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.androidx.fragment)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
