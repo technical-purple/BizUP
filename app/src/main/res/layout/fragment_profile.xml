@@ -100,6 +100,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

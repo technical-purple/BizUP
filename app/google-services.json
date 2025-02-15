@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1082638259291",
+    "project_id": "bizup-f9719",
+    "storage_bucket": "bizup-f9719.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082638259291:android:b756e83bbcbb598d211b7e",
+        "android_client_info": {
+          "package_name": "com.bizbayanihan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082638259291-eg39tfvtjkp7t5g6t256k45mla57v1q2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfADLEX2Y1bVTviFCCC_w7EcAXkxuNnRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082638259291-eg39tfvtjkp7t5g6t256k45mla57v1q2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082638259291:android:71b1ba41b9366fe8211b7e",
+        "android_client_info": {
+          "package_name": "com.bizup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082638259291-eg39tfvtjkp7t5g6t256k45mla57v1q2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfADLEX2Y1bVTviFCCC_w7EcAXkxuNnRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082638259291-eg39tfvtjkp7t5g6t256k45mla57v1q2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
