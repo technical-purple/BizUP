@@ -1,100 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProfileFragment"
-    android:background="@drawable/home">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:background="@drawable/home"
+    android:fillViewport="true"
+    tools:context=".ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/profileImageView"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
-            android:src="@drawable/profile_container" />
+            android:layout_marginTop="64dp"
+            android:src="@drawable/profile_container"
+            android:contentDescription="profile_image_description"/>
 
         <TextView
+            android:id="@+id/userNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
+            android:layout_margin="16dp"
             android:fontFamily="@font/urbanist"
-            android:text="John Employee"
+            android:gravity="center"
+            android:text="user_name"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="375dp"
+            android:id="@+id/profileOptionsLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/rounded_rectangle"
             android:backgroundTint="#5b575a"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="16dp">
 
             <TextView
+                android:id="@+id/editProfileTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:drawableLeft="@drawable/edit"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/urbanist"
-                android:text="   Edit Profile"
+                android:text="edit_profile"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/notificationsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:drawableLeft="@drawable/notification"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/urbanist"
-                android:text="  Notifications"
+                android:text="notifications"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/coursesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:drawableLeft="@drawable/course"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/urbanist"
-                android:text="   Courses"
+                android:text="courses"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="375dp"
+            android:id="@+id/settingsLogoutLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/rounded_rectangle"
             android:backgroundTint="#5b575a"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="12dp">
 
             <TextView
+                android:id="@+id/settingsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:drawableLeft="@drawable/settings"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/urbanist"
-                android:text="   Settings"
+                android:text="settings"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -103,16 +116,14 @@
                 android:id="@+id/textLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:drawableLeft="@drawable/exit"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/urbanist"
-                android:text="  Log Out"
+                android:text="log_out"
                 android:textColor="@color/red"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
     </LinearLayout>
-
-</FrameLayout>
+</androidx.core.widget.NestedScrollView>
