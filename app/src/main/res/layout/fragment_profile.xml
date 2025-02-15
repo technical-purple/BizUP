@@ -57,8 +57,8 @@
                 android:fontFamily="@font/urbanist"
                 android:text="edit_profile"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
+<!--                android:textStyle="bold" />-->
 
             <TextView
                 android:id="@+id/notificationsTextView"
@@ -70,8 +70,8 @@
                 android:fontFamily="@font/urbanist"
                 android:text="notifications"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
+<!--                android:textStyle="bold" />-->
 
             <TextView
                 android:id="@+id/coursesTextView"
@@ -83,8 +83,8 @@
                 android:fontFamily="@font/urbanist"
                 android:text="courses"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
+<!--                android:textStyle="bold" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -109,8 +109,8 @@
                 android:fontFamily="@font/urbanist"
                 android:text="settings"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
+<!--                android:textStyle="bold" />-->
 
             <TextView
                 android:id="@+id/textLogout"
@@ -122,8 +122,8 @@
                 android:fontFamily="@font/urbanist"
                 android:text="log_out"
                 android:textColor="@color/red"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
