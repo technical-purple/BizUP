@@ -51,7 +51,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_rectangle"
                     android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -75,7 +76,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_rectangle"
                     android:imeOptions="actionNext"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
