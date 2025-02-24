@@ -101,7 +101,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_rectangle"
                     android:imeOptions="actionDone"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton

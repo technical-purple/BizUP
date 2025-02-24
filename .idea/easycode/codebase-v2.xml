@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/app/src/androidTest/java/com/bizup/ExampleInstrumentedTest.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/ChooseRole.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/CommunityFragment.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/Forgotpassword.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/Home.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/HomeFragment.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/Login.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/MessageFragment.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/ProfileFragment.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/Signup.kt;D:/BizUPAlpha/app/src/main/java/com/bizup/SplashActivity.kt;D:/BizUPAlpha/app/src/test/java/com/bizup/ExampleUnitTest.kt;D:/BizUPAlpha/app/build.gradle.kts;D:/BizUPAlpha/app/google-services.json;D:/BizUPAlpha/build.gradle.kts;D:/BizUPAlpha/settings.gradle.kts" />
+  </component>
+</project>
