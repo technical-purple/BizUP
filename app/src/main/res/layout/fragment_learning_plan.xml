@@ -6,7 +6,7 @@
     tools:context=".LearningPlanFragment"
     android:background="@color/black">
 
-    <!-- Add your UI elements for the Learning Plan here -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

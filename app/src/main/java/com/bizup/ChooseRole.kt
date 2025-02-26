@@ -1,10 +1,13 @@
 package com.bizup
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.database.FirebaseDatabase
 
 class ChooseRole : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +19,37 @@ class ChooseRole : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val buttonLearner: Button = findViewById(R.id.buttonLearner)
+        val buttonInstructor: Button = findViewById(R.id.buttonInstructor)
+
+        buttonLearner.setOnClickListener {
+            saveRoleToFirebase("learner") // Save "learner" role
+            navigateToHome()
+        }
+
+        buttonInstructor.setOnClickListener {
+            saveRoleToFirebase("instructor") // Save "instructor" role
+            navigateToHome()
+        }
+    }
+
+    private fun saveRoleToFirebase(role: String) {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("users").child("user_id").child("role") // Replace "user_id" with the actual user ID
+
+        myRef.setValue(role)
+            .addOnSuccessListener {
+                // Role saved successfully
+            }
+            .addOnFailureListener {
+                // Handle error
+            }
+    }
+
+    private fun navigateToHome() {
+        val intent = Intent(this, Home::class.java)
+        startActivity(intent)
+        finish()
     }
 }

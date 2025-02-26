@@ -6,7 +6,6 @@
     tools:context=".SubscriptionFragment"
     android:background="@color/black">
 
-    <!-- Add your UI elements for the Subscription here -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
