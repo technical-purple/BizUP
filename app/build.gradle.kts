@@ -39,6 +39,8 @@ android {
     }
 }
 
+val glance_version = "1.1.1"
+
 dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("com.google.firebase:firebase-bom:32.1.1")
@@ -62,4 +64,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation("androidx.glance:glance:$glance_version")
+    implementation("androidx.glance:glance-appwidget:$glance_version")
+
 }
