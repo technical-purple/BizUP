@@ -1,122 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <LinearLayout
+
+    <RelativeLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_alignParentTop="true"
+        android:background="@color/black"
+        android:padding="8dp">
 
-        <!-- Channel Title -->
-        <TextView
-            android:layout_width="wrap_content"
+
+        <ImageButton
+            android:id="@+id/videoCallButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="video_call"
+            android:src="@drawable/videocall" />
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/inputArea"
+        android:layout_below="@+id/topBar"
+        android:clipToPadding="false"
+        android:padding="8dp" />
+
+
+    <LinearLayout
+        android:id="@+id/inputArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <ImageButton
+            android:id="@+id/attachImageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="attach_image"
+            android:src="@drawable/attach" />
+
+
+        <EditText
+            android:id="@+id/messageEditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Channel 2"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_rectangle"
+            android:hint="Message"
+            android:inputType="textMultiLine"
+            android:padding="8dp"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColorHint="@color/black" />
 
-        <!-- Announcements Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/announcementsHeadingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="Announcements"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey" />
-
-            <LinearLayout
-                android:id="@+id/announcementsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <!-- Example Announcement Button -->
-                <Button
-                    android:id="@+id/exampleAnnouncementButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:text="Welcome to Channel 2! This is where we post important updates."
-                    android:textColor="@color/white" />
-
-                <!-- Add more announcement buttons here programmatically -->
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Meetings Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/meetingsHeadingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="Meetings"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey" />
-
-            <LinearLayout
-                android:id="@+id/meetingsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <!-- Example Meeting Button -->
-                <Button
-                    android:id="@+id/exampleMeetingButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:text="Team Meeting: Monday at 10:00 AM"
-                    android:textColor="@color/white" />
-
-                <!-- Add more meeting buttons here programmatically -->
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Introduction Button -->
-        <Button
-            android:id="@+id/introductionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="Introduce Yourself"
-            android:textColor="@color/white" />
+        <ImageButton
+            android:id="@+id/sendMessageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="send_message"
+            android:src="@drawable/send" />
 
     </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>

@@ -6,18 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bizup.databinding.FragmentCommunityBinding
-import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class CommunityFragment : Fragment() {
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navigationView: NavigationView
     private var isExpanded = false
     private val expandedWidth = 200
-    private val collapsedWidth = 60
+    private val collapsedWidth = 64
+    private val firestore = FirebaseFirestore.getInstance()
+    private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,51 +29,75 @@ class CommunityFragment : Fragment() {
     ): View {
         _binding = FragmentCommunityBinding.inflate(inflater, container, false)
         val view = binding.root
-        navigationView = binding.navView
 
-        setupDrawer()
+        setupServerIcon()
+        setupChannelClicks()
 
         if (savedInstanceState == null) {
-            replaceFragment(Channel1Fragment())
+            parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
         return view
     }
 
-    private fun setupDrawer() {
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-
-                R.id.nav_channel1 -> {
-                    replaceFragment(Channel1Fragment())
-                    toggleNavigationViewWidth()
-                }
-
-                R.id.nav_channel2 -> {
-                    replaceFragment(Channel2Fragment())
-                    toggleNavigationViewWidth()
-                }
-
-                R.id.nav_channel3 -> {
-                    replaceFragment(Channel3Fragment())
-                    toggleNavigationViewWidth()
-                }
-
-                else -> false
-            }
-            true
+    private fun setupServerIcon() {
+        binding.serverIcon.setOnClickListener {
+            toggleNavigationViewWidth()
         }
-        // Disable the "Community" menu item
-        val menu = navigationView.menu
-        val communityItem = menu.findItem(R.id.nav_open_drawer)
-        communityItem.isEnabled = false
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = childFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-        fragmentTransaction.commit()
+    private fun setupChannelClicks() {
+        binding.channel1.setOnClickListener {
+            showJoinChannelDialog("channel1")
+        }
+
+        binding.channel2.setOnClickListener {
+            showJoinChannelDialog("channel2")
+        }
+
+        binding.channel3.setOnClickListener {
+            showJoinChannelDialog("channel3")
+        }
+    }
+
+    private fun showJoinChannelDialog(channelId: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Join Channel")
+            .setMessage("Do you want to join this channel?")
+            .setPositiveButton("Yes") { _, _ ->
+                joinChannel(channelId)
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+
+    private fun joinChannel(channelId: String) {
+        currentUser?.let { user ->
+            val userId = user.uid
+            val userChannelData = hashMapOf(
+                "userId" to userId,
+                "channelId" to channelId,
+            )
+
+            firestore.collection("user_channels")
+                .document("${userId}_$channelId")
+                .set(userChannelData)
+                .addOnSuccessListener {
+                    parentFragmentManager.beginTransaction().replace(R.id.fragment_container, getChannelFragment(channelId)).commit()
+                }
+                .addOnFailureListener { e ->
+                    e.printStackTrace()
+                }
+        }
+    }
+
+    private fun getChannelFragment(channelId: String): Fragment {
+        return when (channelId) {
+            "channel1" -> Channel1Fragment()
+            "channel2" -> Channel2Fragment()
+            "channel3" -> Channel3Fragment()
+            else -> HomeFragment()
+        }
     }
 
     private fun toggleNavigationViewWidth() {
@@ -88,9 +116,9 @@ class CommunityFragment : Fragment() {
         val animator = ValueAnimator.ofInt(startWidth, targetWidth)
         animator.addUpdateListener { valueAnimator ->
             val value = valueAnimator.animatedValue as Int
-            val layoutParams = navigationView.layoutParams
-            layoutParams.width = value.toDp()
-            navigationView.layoutParams = layoutParams
+            val layoutParams = binding.discordNavView.layoutParams
+            layoutParams.width = value
+            binding.discordNavView.layoutParams = layoutParams
         }
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.duration = 300
@@ -98,8 +126,6 @@ class CommunityFragment : Fragment() {
 
         isExpanded = !isExpanded
     }
-
-    private fun Int.toDp(): Int = (this * resources.displayMetrics.density).toInt()
 
     override fun onDestroyView() {
         super.onDestroyView()

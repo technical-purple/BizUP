@@ -2,54 +2,46 @@ package com.bizup
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ChooseRole : AppCompatActivity() {
+    private var db: FirebaseFirestore? = null
+    private var firebaseAuth: FirebaseAuth? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_choose_role)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        val buttonLearner: Button = findViewById(R.id.buttonLearner)
-        val buttonInstructor: Button = findViewById(R.id.buttonInstructor)
+        db = FirebaseFirestore.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
 
-        buttonLearner.setOnClickListener {
-            saveRoleToFirebase("learner")
-            navigateToHome()
-        }
+        val buttonLearner = findViewById<Button>(R.id.buttonLearner)
+        val buttonInstructor = findViewById<Button>(R.id.buttonInstructor)
 
-        buttonInstructor.setOnClickListener {
-            saveRoleToFirebase("instructor")
-            navigateToHome()
-        }
+        buttonLearner.setOnClickListener { v: View? -> saveRoleToFirestore("learner") }
+        buttonInstructor.setOnClickListener { v: View? -> saveRoleToFirestore("instructor") }
     }
 
-    private fun saveRoleToFirebase(role: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("users").child("user_id").child("role")
+    private fun saveRoleToFirestore(role: String) {
+        val userId = firebaseAuth!!.currentUser!!.uid
 
-        myRef.setValue(role)
-            .addOnSuccessListener {
-
+        db!!.collection("account").document(userId)
+            .update("role", role)
+            .addOnSuccessListener { aVoid: Void? ->
+                startActivity(Intent(this, Home::class.java))
+                finish()
             }
-            .addOnFailureListener {
-
+            .addOnFailureListener { e: Exception? ->
+                Toast.makeText(
+                    this,
+                    "Failed to save role.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-    }
-
-    private fun navigateToHome() {
-        val intent = Intent(this, Home::class.java)
-        startActivity(intent)
-        finish()
     }
 }

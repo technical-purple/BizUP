@@ -8,16 +8,72 @@
     android:orientation="horizontal"
     tools:context=".CommunityFragment">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="60dp"
+    <LinearLayout
+        android:id="@+id/discord_nav_view"
+        android:layout_width="64dp"
         android:layout_height="match_parent"
         android:background="@color/grey"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/drawer_menu"
-        android:clickable="true"
-        app:itemHorizontalPadding="16dp"/>
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/server_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="Server Icon"/>
+<!--            android:src="@drawable/ic_server" -->
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:layout_marginVertical="8dp" />
+
+        <ImageView
+            android:id="@+id/channel_1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="Channel 1"/>
+<!--            android:src="@drawable/ic_channel" -->
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:layout_marginVertical="8dp" />
+
+        <ImageView
+            android:id="@+id/channel_2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="Channel 2"/>
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:layout_marginVertical="8dp" />
+
+        <ImageView
+            android:id="@+id/channel_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="Channel 3"/>
+
+
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"

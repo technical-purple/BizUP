@@ -2,108 +2,131 @@ package com.bizup
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-//import androidx.compose.ui.semantics.error
-//import androidx.compose.ui.semantics.text
 import com.bizup.databinding.ActivityLoginBinding
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
-
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    private var binding: ActivityLoginBinding? = null
+    private var firebaseAuth: FirebaseAuth? = null
+    private var firestore: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding!!.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
-        binding.emailField.isHintEnabled = false
-        binding.passwordField.isHintEnabled = false
-
-        binding.textSignup.setOnClickListener {
-            val intent = Intent(this, Signup::class.java)
+        binding!!.textSignup.setOnClickListener { v ->
+            val intent =
+                Intent(this, Signup::class.java)
             startActivity(intent)
             finish()
         }
 
-        binding.textForgotpassword.setOnClickListener {
-            val intent = Intent(this, Forgotpassword::class.java)
+        binding!!.textForgotpassword.setOnClickListener { v ->
+            val intent = Intent(
+                this,
+                Forgotpassword::class.java
+            )
             startActivity(intent)
             finish()
         }
 
-
-        binding.emailField.editText?.setOnEditorActionListener { _, actionId, _ ->
+        binding!!.emailField.editText!!.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                binding.passwordField.editText?.requestFocus()
+                binding!!.passwordField.editText!!.requestFocus()
                 return@setOnEditorActionListener true
             }
             false
         }
 
-        binding.emailField.editText?.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.emailField.isHintEnabled = true
-                binding.passwordField.isHintEnabled = false
-            }
-        }
-
-        binding.passwordField.editText?.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.passwordField.isHintEnabled = true
-                binding.emailField.isHintEnabled = false
-            }
-        }
-
-        binding.button.setOnClickListener {
-            val email = binding.emailField.editText?.text.toString().trim()
-            val password = binding.passwordField.editText?.text.toString().trim()
+        binding!!.button.setOnClickListener { v ->
+            val email =
+                binding!!.emailField.editText!!.text.toString().trim()
+            val password =
+                binding!!.passwordField.editText!!.text.toString().trim()
 
             if (email.isEmpty()) {
-                binding.emailField.error = "Email is required"
+                binding!!.emailField.error = "Email is required"
                 return@setOnClickListener
             } else {
-                binding.emailField.error = null
+                binding!!.emailField.error = null
             }
 
             if (password.isEmpty()) {
-                binding.passwordField.error = "Password is required"
+                binding!!.passwordField.error = "Password is required"
                 return@setOnClickListener
             } else {
-                binding.passwordField.error = null
+                binding!!.passwordField.error = null
             }
-
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
+            firebaseAuth!!.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task: Task<AuthResult?> ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, Home::class.java)
-                        startActivity(intent)
-                        finish()
+                        val userId = firebaseAuth!!.currentUser!!.uid
+
+                        firestore!!.collection("account").document(userId)
+                            .get()
+                            .addOnSuccessListener { document: DocumentSnapshot ->
+                                if (document.exists()) {
+                                    val role = document.getString("role")
+                                    if ("learner" == role) {
+                                        startActivity(
+                                            Intent(
+                                                this,
+                                                Home::class.java
+                                            )
+                                        )
+                                    } else if ("instructor" == role) {
+                                        startActivity(
+                                            Intent(
+                                                this,
+                                                HomeInstructor::class.java
+                                            )
+                                        )
+                                    }
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "User data not found.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
                     } else {
                         val exception = task.exception
-                        when (exception) {
-                            is FirebaseAuthInvalidUserException -> {
-                                Toast.makeText(this, "No account found with this email.", Toast.LENGTH_SHORT).show()
-                            }
-                            is FirebaseAuthInvalidCredentialsException -> {
-                                Toast.makeText(this, "Incorrect password.", Toast.LENGTH_SHORT).show()
-                            }
-                            else -> {
-                                Toast.makeText(this, "Login failed. Please check your credentials and try again.", Toast.LENGTH_SHORT).show()
-                            }
+                        if (exception is FirebaseAuthInvalidUserException) {
+                            Toast.makeText(
+                                this,
+                                "No account found with this email.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else if (exception is FirebaseAuthInvalidCredentialsException) {
+                            Toast.makeText(
+                                this,
+                                "Incorrect password.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Login failed. Please check your credentials and try again.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
         }
     }
-
 }
