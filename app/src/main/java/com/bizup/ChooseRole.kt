@@ -24,26 +24,26 @@ class ChooseRole : AppCompatActivity() {
         val buttonInstructor: Button = findViewById(R.id.buttonInstructor)
 
         buttonLearner.setOnClickListener {
-            saveRoleToFirebase("learner") // Save "learner" role
+            saveRoleToFirebase("learner")
             navigateToHome()
         }
 
         buttonInstructor.setOnClickListener {
-            saveRoleToFirebase("instructor") // Save "instructor" role
+            saveRoleToFirebase("instructor")
             navigateToHome()
         }
     }
 
     private fun saveRoleToFirebase(role: String) {
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("users").child("user_id").child("role") // Replace "user_id" with the actual user ID
+        val myRef = database.getReference("users").child("user_id").child("role")
 
         myRef.setValue(role)
             .addOnSuccessListener {
-                // Role saved successfully
+
             }
             .addOnFailureListener {
-                // Handle error
+
             }
     }
 
