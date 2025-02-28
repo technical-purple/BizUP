@@ -19,7 +19,7 @@ class CommunityFragment : Fragment() {
     private val binding get() = _binding!!
     private var isExpanded = false
     private val expandedWidth = 200
-    private val collapsedWidth = 64
+    private val collapsedWidth = 80
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -48,15 +48,43 @@ class CommunityFragment : Fragment() {
 
     private fun setupChannelClicks() {
         binding.channel1.setOnClickListener {
-            showJoinChannelDialog("channel1")
+            checkIfUserJoinedChannel("channel1")
+
         }
 
         binding.channel2.setOnClickListener {
-            showJoinChannelDialog("channel2")
+            checkIfUserJoinedChannel("channel2")
+
         }
 
         binding.channel3.setOnClickListener {
-            showJoinChannelDialog("channel3")
+            checkIfUserJoinedChannel("channel3")
+
+        }
+    }
+
+    private fun checkIfUserJoinedChannel(channelId: String) {
+        currentUser?.let { user ->
+            val userId = user.uid
+            val docId = "${userId}_$channelId"
+
+            firestore.collection("user_channels")
+                .document(docId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, getChannelFragment(channelId))
+                            .commit()
+                    } else {
+
+                        showJoinChannelDialog(channelId)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    e.printStackTrace()
+                }
         }
     }
 
@@ -74,22 +102,39 @@ class CommunityFragment : Fragment() {
     private fun joinChannel(channelId: String) {
         currentUser?.let { user ->
             val userId = user.uid
-            val userChannelData = hashMapOf(
-                "userId" to userId,
-                "channelId" to channelId,
-            )
+            val docId = "${userId}_$channelId"
 
             firestore.collection("user_channels")
-                .document("${userId}_$channelId")
-                .set(userChannelData)
-                .addOnSuccessListener {
-                    parentFragmentManager.beginTransaction().replace(R.id.fragment_container, getChannelFragment(channelId)).commit()
+                .document(docId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+
+                        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, getChannelFragment(channelId)).commit()
+                    } else {
+
+                        val userChannelData = hashMapOf(
+                            "userId" to userId,
+                            "channelId" to channelId
+                        )
+
+                        firestore.collection("user_channels")
+                            .document(docId)
+                            .set(userChannelData)
+                            .addOnSuccessListener {
+                                parentFragmentManager.beginTransaction().replace(R.id.fragment_container, getChannelFragment(channelId)).commit()
+                            }
+                            .addOnFailureListener { e ->
+                                e.printStackTrace()
+                            }
+                    }
                 }
                 .addOnFailureListener { e ->
                     e.printStackTrace()
                 }
         }
     }
+
 
     private fun getChannelFragment(channelId: String): Fragment {
         return when (channelId) {
