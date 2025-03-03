@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
 
 class NotificationActivity : AppCompatActivity() {
     private lateinit var notificationRecyclerView: RecyclerView
@@ -18,7 +18,6 @@ class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification)
-
 
         notificationRecyclerView = findViewById(R.id.notificationRecyclerView)
         notificationRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -42,7 +41,7 @@ class NotificationActivity : AppCompatActivity() {
                         val notification = Notification(
                             document.getString("title") ?: "",
                             document.getString("message") ?: "",
-                            document.getLong("timestamp") ?: 0L
+                            document.getTimestamp("timestamp")?.seconds ?: 0L
                         )
                         notificationList.add(notification)
                     }
@@ -56,7 +55,7 @@ class NotificationActivity : AppCompatActivity() {
     private fun deleteOldNotifications() {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_YEAR, -2)
-        val twoDaysAgo = calendar.time
+        val twoDaysAgo = Timestamp(calendar.time)
 
         db.collection("notifications")
             .whereLessThan("timestamp", twoDaysAgo)

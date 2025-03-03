@@ -21,7 +21,7 @@ class CommunityFragment : Fragment() {
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private var isExpanded = false
-    private val expandedWidth = 400
+    private val expandedWidth = 550
     private val collapsedWidth = 150
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser
@@ -71,14 +71,11 @@ class CommunityFragment : Fragment() {
                     if (!querySnapshot.isEmpty) {
                         val firstChannelId = querySnapshot.documents[0].getString("channelId")
                             ?: return@launch
-                        // Hide the empty channel layout
                         binding.emptyChannelLayout.root.visibility = View.GONE
-                        // Display the first channel
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(firstChannelId))
                             .commit()
                     } else {
-                        // Show the empty channel layout
                         binding.emptyChannelLayout.root.visibility = View.VISIBLE
                     }
                 } catch (e: Exception) {
@@ -101,7 +98,6 @@ class CommunityFragment : Fragment() {
                             .await()
                     }
                     if (document.exists()) {
-                        // Hide the empty channel layout
                         binding.emptyChannelLayout.root.visibility = View.GONE
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(channelId))
@@ -138,7 +134,6 @@ class CommunityFragment : Fragment() {
                             .await()
                     }
                     if (document.exists()) {
-                        // Hide the empty channel layout
                         binding.emptyChannelLayout.root.visibility = View.GONE
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(channelId))
@@ -154,7 +149,6 @@ class CommunityFragment : Fragment() {
                                 .set(userChannelData)
                                 .await()
                         }
-                        // Hide the empty channel layout
                         binding.emptyChannelLayout.root.visibility = View.GONE
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(channelId))
