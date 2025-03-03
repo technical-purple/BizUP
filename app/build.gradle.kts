@@ -39,9 +39,6 @@ android {
     }
 }
 
-//repositories {
-//    maven { url 'https://jitpack.io' }
-//}
 
 val glance_version = "1.1.1"
 

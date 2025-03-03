@@ -3,11 +3,111 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/dark_grey">
 
     <TextView
+        android:id="@+id/header_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chnanel"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Channel"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/notification_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/notif_bell"/>
+
+
+    <TextView
+        android:id="@+id/text_channels_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_title"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="42dp"
+        android:text="Text Channels"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_announcement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_channels_title"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="10dp"
+        android:text="announcement"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
+        android:width="300dp"
+        android:paddingStart="-100dp"
+        android:textAllCaps="false"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_general"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_announcement"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="10dp"
+        android:text="general"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
+        android:width="300dp"
+        android:paddingStart="-150dp"
+        android:textAllCaps="false"/>
+
+    <TextView
+        android:id="@+id/call_channels_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_general"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="42dp"
+        android:text="Call Channels"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_discussions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/call_channels_title"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="10dp"
+        android:text="discussions"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
+        android:width="300dp"
+        android:paddingStart="-125dp"
+        android:textAllCaps="false"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_meetings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_discussions"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="10dp"
+        android:text="meetings"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
+        android:width="300dp"
+        android:paddingStart="-140dp"
+        android:textAllCaps="false"/>
 
 </RelativeLayout>
