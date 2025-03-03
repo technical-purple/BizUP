@@ -1,5 +1,6 @@
 package com.bizup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,30 @@ class Channel3Fragment : Fragment() {
     ): View {
         _binding = FragmentChannel3Binding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.notificationButton.setOnClickListener {
+            startActivity(Intent(context, NotificationActivity::class.java))
+        }
+        binding.buttonAnnouncement.setOnClickListener {
+            startActivity(Intent(context, AnnouncementActivity::class.java))
+        }
+
+        binding.buttonGeneral.setOnClickListener {
+            startActivity(Intent(context, GeneralActivity::class.java))
+        }
+
+        binding.buttonDiscussions.setOnClickListener {
+            startActivity(Intent(context, DiscussionsActivity::class.java))
+        }
+
+        binding.buttonMeetings.setOnClickListener {
+            startActivity(Intent(context, MeetingsActivity::class.java))
+        }
+
     }
 
     override fun onDestroyView() {
