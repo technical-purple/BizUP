@@ -18,7 +18,7 @@ class CommunityFragment : Fragment() {
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private var isExpanded = false
-    private val expandedWidth = 200
+    private val expandedWidth = 500
     private val collapsedWidth = 80
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser

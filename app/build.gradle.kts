@@ -46,10 +46,18 @@ android {
 val glance_version = "1.1.1"
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
     implementation("com.google.android.material:material:1.12.0")
-    implementation("com.google.firebase:firebase-bom:32.1.1")
+    implementation ("com.google.firebase:firebase-messaging:23.0.6")
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
-    implementation ("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("androidx.glance:glance:$glance_version")
+    implementation("androidx.glance:glance-appwidget:$glance_version")
+    implementation("com.intuit.sdp:sdp-android:1.0.6")
+    implementation("com.intuit.ssp:ssp-android:1.0.6")
+    implementation("com.makeramen:roundedimageview:2.3.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.1.2")
+    implementation("com.google.firebase:firebase-firestore:25.1.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -65,15 +73,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation("androidx.glance:glance:$glance_version")
-    implementation("androidx.glance:glance-appwidget:$glance_version")
-
-
-
 }

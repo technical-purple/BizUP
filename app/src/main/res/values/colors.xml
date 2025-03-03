@@ -8,6 +8,17 @@
     <color name="white">#FFFFFFFF</color>
     <color name="your_active_color">#FF00FF00</color>
     <color name="your_default_color">#FF808080</color>
+    <color name="your_inactive_color">#FFC0C0C0</color>
+    <color name="primary">#1C2E46</color>
+    <color name="primary_dark">#142232</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="input_background">#ECECEC</color>
+    <color name="error">#B00020</color>
+    <color name="received_message_background">#090d16</color>
+
+
+
 
     <!-- <color name="black">#FF000000</color> -->
 </resources>

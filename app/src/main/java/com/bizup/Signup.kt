@@ -88,7 +88,7 @@ class Signup : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 this,
-                                "Sign up failed. Please try again.",
+                                "Sign up failed. Make sure you have internet. Please try again.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

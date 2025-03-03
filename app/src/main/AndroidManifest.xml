@@ -26,45 +26,33 @@
 
         <activity
             android:name=".Forgotpassword"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false" />
 
         <activity
             android:name=".Home"
-            android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:exported="false"/>
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
             android:name=".ChooseRole"
             android:exported="false" />
+
         <activity
             android:name=".Signup"
             android:exported="false" />
+
         <activity
             android:name=".Login"
+            android:exported="true"/>
+
+        <service
+            android:name="com.bizup.firebase.MessagingService"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
 
-<!--        </activity>-->
-
-        <activity
-            android:name=".LearningPlanFragment"
-            android:exported="false" >
-
-        </activity>
     </application>
 
 </manifest>
