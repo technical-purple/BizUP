@@ -1,5 +1,6 @@
 package com.bizup
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -18,6 +19,7 @@ class Login : AppCompatActivity() {
     private var binding: ActivityLoginBinding? = null
     private var firebaseAuth: FirebaseAuth? = null
     private var firestore: FirebaseFirestore? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +72,17 @@ class Login : AppCompatActivity() {
             } else {
                 binding!!.passwordField.error = null
             }
+
+            progressDialog = ProgressDialog(this)
+            progressDialog!!.setMessage("Logging in...")
+            progressDialog!!.setCancelable(false)
+            progressDialog!!.show()
+
             firebaseAuth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task: Task<AuthResult?> ->
+
+                    progressDialog!!.dismiss()
+
                     if (task.isSuccessful) {
                         val userId = firebaseAuth!!.currentUser!!.uid
 

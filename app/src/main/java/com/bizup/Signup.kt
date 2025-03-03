@@ -1,5 +1,6 @@
 package com.bizup
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -17,6 +18,7 @@ class Signup : AppCompatActivity() {
     private var binding: ActivitySignupBinding? = null
     private var firebaseAuth: FirebaseAuth? = null
     private var db: FirebaseFirestore? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,10 @@ class Signup : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+
+        progressDialog = ProgressDialog(this)
+        progressDialog!!.setMessage("Signing up...")
+        progressDialog!!.setCancelable(false)
 
         binding!!.textLogin.setOnClickListener { v ->
             val intent =
@@ -73,8 +79,12 @@ class Signup : AppCompatActivity() {
                 binding!!.confirmPassword.error = "Passwords do not match"
                 return@setOnClickListener
             }
+
+            progressDialog!!.show()
+
             firebaseAuth!!.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task: Task<AuthResult?> ->
+                    progressDialog!!.dismiss()
                     if (task.isSuccessful) {
                         val userId = firebaseAuth!!.currentUser!!.uid
                         saveUserToFirestore(userId, email)

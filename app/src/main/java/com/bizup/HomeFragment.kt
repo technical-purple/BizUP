@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bizup.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -12,6 +13,10 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var tabLayout: TabLayout
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
+    private var username: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,9 +25,18 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         tabLayout = binding.tabLayout
+        swipeRefreshLayout = binding.swipeRefresherLayout
 
         setupTabLayout()
+        setupSwipeRefreshLayout()
+
         return view
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun setupTabLayout() {

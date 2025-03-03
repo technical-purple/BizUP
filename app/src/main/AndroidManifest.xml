@@ -43,6 +43,26 @@
         <activity
             android:name=".Login"
             android:exported="true"/>
+        
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".MeetingsActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".DiscussionsActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".GeneralActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AnnouncementActivity"
+            android:exported="false"/>
 
         <service
             android:name="com.bizup.firebase.MessagingService"

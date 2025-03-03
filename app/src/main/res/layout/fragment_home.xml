@@ -7,86 +7,95 @@
     android:background="@drawable/home"
     tools:context=".HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresherLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/home_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/urbanist"
-            android:text="@string/hello_user"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/verified_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/verified"
-            app:layout_constraintBottom_toBottomOf="@id/home_title"
-            app:layout_constraintStart_toEndOf="@id/home_title"
-            app:layout_constraintTop_toTopOf="@id/home_title" />
-
-        <ImageView
-            android:id="@+id/notification_bell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:src="@drawable/notif_bell"
-            app:layout_constraintBottom_toBottomOf="@id/home_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/home_title" />
-
-        <!-- Tab Layout -->
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_title"
-            app:tabIndicatorColor="@color/yellow"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/yellow">
-
-            <com.google.android.material.tabs.TabItem
+            <TextView
+                android:id="@+id/home_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Today" />
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/urbanist"
+                android:text="@string/hello_user"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.tabs.TabItem
+            <ImageView
+                android:id="@+id/verified_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Learning Plan" />
+                android:layout_marginStart="8dp"
+                android:src="@drawable/verified"
+                app:layout_constraintBottom_toBottomOf="@id/home_title"
+                app:layout_constraintStart_toEndOf="@id/home_title"
+                app:layout_constraintTop_toTopOf="@id/home_title" />
 
-            <com.google.android.material.tabs.TabItem
+            <ImageView
+                android:id="@+id/notification_bell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subscription" />
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/notif_bell"
+                app:layout_constraintBottom_toBottomOf="@id/home_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/home_title" />
 
-        </com.google.android.material.tabs.TabLayout>
-        <FrameLayout
-            android:id="@+id/nestedFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout">
+            <!-- Tab Layout -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_title"
+                app:tabIndicatorColor="@color/yellow"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/yellow">
 
-        </FrameLayout>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Learning Plan" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subscription" />
+
+            </com.google.android.material.tabs.TabLayout>
+            <FrameLayout
+                android:id="@+id/nestedFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tabLayout">
+
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>
