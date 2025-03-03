@@ -188,12 +188,18 @@ class CommunityFragment : Fragment() {
             layoutParams.width = value
             binding.discordNavView.layoutParams = layoutParams
             binding.discordNavView.requestLayout()
+
+            binding.serverName.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            binding.channel1Name.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            binding.channel2Name.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            binding.channel3Name.visibility = if (isExpanded) View.GONE else View.VISIBLE
         }
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.duration = 200
         animator.start()
         isExpanded = !isExpanded
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
