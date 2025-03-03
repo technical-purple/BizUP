@@ -12,14 +12,13 @@ import com.bizup.databinding.FragmentCommunityBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class CommunityFragment : Fragment() {
 
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private var isExpanded = false
-    private val expandedWidth = 500
-    private val collapsedWidth = 80
+    private val expandedWidth = 400
+    private val collapsedWidth = 150
     private val firestore = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -34,7 +33,8 @@ class CommunityFragment : Fragment() {
         setupChannelClicks()
 
         if (savedInstanceState == null) {
-            parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, HomeFragment()).commit()
         }
 
         return view
@@ -49,17 +49,14 @@ class CommunityFragment : Fragment() {
     private fun setupChannelClicks() {
         binding.channel1.setOnClickListener {
             checkIfUserJoinedChannel("channel1")
-
         }
 
         binding.channel2.setOnClickListener {
             checkIfUserJoinedChannel("channel2")
-
         }
 
         binding.channel3.setOnClickListener {
             checkIfUserJoinedChannel("channel3")
-
         }
     }
 
@@ -73,12 +70,10 @@ class CommunityFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(channelId))
                             .commit()
                     } else {
-
                         showJoinChannelDialog(channelId)
                     }
                 }
@@ -109,10 +104,10 @@ class CommunityFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-
-                        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, getChannelFragment(channelId)).commit()
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, getChannelFragment(channelId))
+                            .commit()
                     } else {
-
                         val userChannelData = hashMapOf(
                             "userId" to userId,
                             "channelId" to channelId
@@ -122,7 +117,9 @@ class CommunityFragment : Fragment() {
                             .document(docId)
                             .set(userChannelData)
                             .addOnSuccessListener {
-                                parentFragmentManager.beginTransaction().replace(R.id.fragment_container, getChannelFragment(channelId)).commit()
+                                parentFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, getChannelFragment(channelId))
+                                    .commit()
                             }
                             .addOnFailureListener { e ->
                                 e.printStackTrace()
@@ -134,7 +131,6 @@ class CommunityFragment : Fragment() {
                 }
         }
     }
-
 
     private fun getChannelFragment(channelId: String): Fragment {
         return when (channelId) {
@@ -164,6 +160,7 @@ class CommunityFragment : Fragment() {
             val layoutParams = binding.discordNavView.layoutParams
             layoutParams.width = value
             binding.discordNavView.layoutParams = layoutParams
+            binding.discordNavView.requestLayout()
         }
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.duration = 300
