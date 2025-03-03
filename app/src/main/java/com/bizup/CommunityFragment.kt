@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.bizup.databinding.FragmentCommunityBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class CommunityFragment : Fragment() {
-
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private var isExpanded = false
@@ -28,15 +32,11 @@ class CommunityFragment : Fragment() {
     ): View {
         _binding = FragmentCommunityBinding.inflate(inflater, container, false)
         val view = binding.root
-
         setupServerIcon()
         setupChannelClicks()
-
         if (savedInstanceState == null) {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment()).commit()
+            checkUserJoinedAnyChannel()
         }
-
         return view
     }
 
@@ -50,13 +50,41 @@ class CommunityFragment : Fragment() {
         binding.channel1.setOnClickListener {
             checkIfUserJoinedChannel("channel1")
         }
-
         binding.channel2.setOnClickListener {
             checkIfUserJoinedChannel("channel2")
         }
-
         binding.channel3.setOnClickListener {
             checkIfUserJoinedChannel("channel3")
+        }
+    }
+
+    private fun checkUserJoinedAnyChannel() {
+        currentUser?.let { user ->
+            lifecycleScope.launch {
+                try {
+                    val querySnapshot = withContext(Dispatchers.IO) {
+                        firestore.collection("user_channels")
+                            .whereEqualTo("userId", user.uid)
+                            .get()
+                            .await()
+                    }
+                    if (!querySnapshot.isEmpty) {
+                        val firstChannelId = querySnapshot.documents[0].getString("channelId")
+                            ?: return@launch
+                        // Hide the empty channel layout
+                        binding.emptyChannelLayout.root.visibility = View.GONE
+                        // Display the first channel
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, getChannelFragment(firstChannelId))
+                            .commit()
+                    } else {
+                        // Show the empty channel layout
+                        binding.emptyChannelLayout.root.visibility = View.VISIBLE
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 
@@ -64,22 +92,27 @@ class CommunityFragment : Fragment() {
         currentUser?.let { user ->
             val userId = user.uid
             val docId = "${userId}_$channelId"
-
-            firestore.collection("user_channels")
-                .document(docId)
-                .get()
-                .addOnSuccessListener { document ->
+            lifecycleScope.launch {
+                try {
+                    val document = withContext(Dispatchers.IO) {
+                        firestore.collection("user_channels")
+                            .document(docId)
+                            .get()
+                            .await()
+                    }
                     if (document.exists()) {
+                        // Hide the empty channel layout
+                        binding.emptyChannelLayout.root.visibility = View.GONE
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(channelId))
                             .commit()
                     } else {
                         showJoinChannelDialog(channelId)
                     }
-                }
-                .addOnFailureListener { e ->
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
         }
     }
 
@@ -87,9 +120,7 @@ class CommunityFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setTitle("Join Channel")
             .setMessage("Do you want to join this channel?")
-            .setPositiveButton("Yes") { _, _ ->
-                joinChannel(channelId)
-            }
+            .setPositiveButton("Yes") { _, _ -> joinChannel(channelId) }
             .setNegativeButton("No", null)
             .show()
     }
@@ -98,12 +129,17 @@ class CommunityFragment : Fragment() {
         currentUser?.let { user ->
             val userId = user.uid
             val docId = "${userId}_$channelId"
-
-            firestore.collection("user_channels")
-                .document(docId)
-                .get()
-                .addOnSuccessListener { document ->
+            lifecycleScope.launch {
+                try {
+                    val document = withContext(Dispatchers.IO) {
+                        firestore.collection("user_channels")
+                            .document(docId)
+                            .get()
+                            .await()
+                    }
                     if (document.exists()) {
+                        // Hide the empty channel layout
+                        binding.emptyChannelLayout.root.visibility = View.GONE
                         parentFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, getChannelFragment(channelId))
                             .commit()
@@ -112,23 +148,22 @@ class CommunityFragment : Fragment() {
                             "userId" to userId,
                             "channelId" to channelId
                         )
-
-                        firestore.collection("user_channels")
-                            .document(docId)
-                            .set(userChannelData)
-                            .addOnSuccessListener {
-                                parentFragmentManager.beginTransaction()
-                                    .replace(R.id.fragment_container, getChannelFragment(channelId))
-                                    .commit()
-                            }
-                            .addOnFailureListener { e ->
-                                e.printStackTrace()
-                            }
+                        withContext(Dispatchers.IO) {
+                            firestore.collection("user_channels")
+                                .document(docId)
+                                .set(userChannelData)
+                                .await()
+                        }
+                        // Hide the empty channel layout
+                        binding.emptyChannelLayout.root.visibility = View.GONE
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, getChannelFragment(channelId))
+                            .commit()
                     }
-                }
-                .addOnFailureListener { e ->
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
         }
     }
 
@@ -147,13 +182,11 @@ class CommunityFragment : Fragment() {
         } else {
             expandedWidth
         }
-
         val startWidth = if (isExpanded) {
             expandedWidth
         } else {
             collapsedWidth
         }
-
         val animator = ValueAnimator.ofInt(startWidth, targetWidth)
         animator.addUpdateListener { valueAnimator ->
             val value = valueAnimator.animatedValue as Int
@@ -163,9 +196,8 @@ class CommunityFragment : Fragment() {
             binding.discordNavView.requestLayout()
         }
         animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.duration = 300
+        animator.duration = 200
         animator.start()
-
         isExpanded = !isExpanded
     }
 
