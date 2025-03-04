@@ -15,7 +15,7 @@ class HomeFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    private var username: String? = null
+//    private var username: String? = null
 
 
     override fun onCreateView(

@@ -24,9 +24,8 @@ class NotificationActivity : AppCompatActivity() {
         notificationAdapter = NotificationAdapter(notificationList)
         notificationRecyclerView.adapter = notificationAdapter
 
-        // Load notifications
+
         loadNotifications()
-        // Delete old notifications
         deleteOldNotifications()
     }
 
@@ -47,7 +46,7 @@ class NotificationActivity : AppCompatActivity() {
                     }
                     notificationAdapter.notifyDataSetChanged()
                 } else {
-                    // Handle the error
+
                 }
             }
     }
@@ -66,7 +65,7 @@ class NotificationActivity : AppCompatActivity() {
                         db.collection("notifications").document(document.id).delete()
                     }
                 } else {
-                    // Handle the error
+
                 }
             }
     }
