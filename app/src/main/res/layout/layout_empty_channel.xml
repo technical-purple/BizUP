@@ -10,5 +10,6 @@
         android:layout_height="wrap_content"
         android:text="Please join a channel"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 </LinearLayout>
